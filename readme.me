@@ -1,0 +1,38 @@
+cd /root
+nano prod-monitor.sh
+chmod -R 777 prod-monitor.sh
+./prod-monitor.sh
+
+sudo apt update
+sudo apt install cron
+
+เริ่มเพิ่ม Cron Jobs โดยใช้คำสั่ง
+
+crontab -e
+
+
+จากนั้นเพิมพ์คำสั่งดังต่อไปนี้ได้เลย
+
+*/15 * * * * /root/prod-monitor.sh
+
+systemctl restart cron && systemctl status cron
+
+
+
+ดู Log cronjob
+
+grep CRON /var/log/syslog
+
+ดู Log monitor
+watch -n 5 tail /prod-monitor.log
+
+
+clear cache on memory
+
+sync; echo 1 > /proc/sys/vm/drop_caches 
+
+
+
+#USE Command
+
+apt update -y && apt install git -y && cd /root && git clone https://github.com/rapterxcode/monitor-linux.git && cd /root/monitor-linux && chmod -R 777 install-monitor.sh && cat install-monitor.sh && ./install-monitor.sh 
